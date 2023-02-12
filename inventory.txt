@@ -1,2 +1,2 @@
 [aws]
-Django ansible_host=3.95.162.28 ansible_user=ubuntu  ansible_ssh_private_key_file=./iti.pem
+Django ansible_host=35.175.242.188 ansible_user=ubuntu  ansible_ssh_private_key_file=./iti.pem

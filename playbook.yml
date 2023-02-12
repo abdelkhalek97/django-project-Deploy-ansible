@@ -1,30 +1,52 @@
 - hosts: aws
   become: True
   tasks:
-  
-    - name: Install nginx
+    - name: installing python3
       apt:
-        name: nginx
+        update_cache: yes
+        pkg:
+          - python3
+          - python3-pip
+          - python3.10-venv
         state: present
-    - name: synchronize files from local to server
+
+    - name: copying django project to server
       synchronize:
-        src: project/
-        dest: /var/www/html/
+        src: Project/
+        dest: /home/ubuntu
 
-    - name: Create default index page
-      copy:
-        dest: /var/www/html/index.html
-        content: "hello from abdelkhalek"
+    - name: running script
+      script: ./script.sh
 
-    - name: restart Nginx
-      service: name=nginx state=restarted
-      become: true
-      become_method: sudo
+
+
+
+
+
+
+
+
+
+
+    # - name: Install nginx
+    #   apt:
+    #     name: nginx
+    #     state: present
+
+    # - name: Create default index page
+    #   copy:
+    #     dest: /var/www/html/index.html
+    #     content: "hello from abdelkhalek"
 
     # - name: Ensure the default nginx port is 8090
     #   replace:
     #    path: /etc/nginx/sites-enabled/default
     #    regexp: '80'
     #    replace: "8090"
+
+    # - name: restart Nginx
+    #   service: name=nginx state=restarted
+    #   become: true
+    #   become_method: sudo
     
 
