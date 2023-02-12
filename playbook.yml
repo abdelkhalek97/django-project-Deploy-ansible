@@ -1,0 +1,30 @@
+- hosts: aws
+  become: True
+  tasks:
+  
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+    - name: synchronize files from local to server
+      synchronize:
+        src: project/
+        dest: /var/www/html/
+
+    - name: Create default index page
+      copy:
+        dest: /var/www/html/index.html
+        content: "hello from abdelkhalek"
+
+    - name: restart Nginx
+      service: name=nginx state=restarted
+      become: true
+      become_method: sudo
+
+    # - name: Ensure the default nginx port is 8090
+    #   replace:
+    #    path: /etc/nginx/sites-enabled/default
+    #    regexp: '80'
+    #    replace: "8090"
+    
+
